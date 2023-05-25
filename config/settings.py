@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # third party apps
     'crispy_forms',
+    'crispy_bootstrap4',
 
 
     # Local
@@ -136,4 +137,5 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # crispy forms
-CRISPY_TEMPLATE_PATH = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
