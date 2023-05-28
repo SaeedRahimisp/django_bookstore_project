@@ -3,7 +3,8 @@
 {% block page_title %}لیست کتاب ها{% endblock %}
 {% block content %}
     {% for book in books %}
-        <h1>{{ book.title }}</h1>
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+        <p>{{ book.content }}</p>
     {% endfor %}
 
 {% endblock %}
