@@ -1,7 +1,7 @@
 from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 
 from .models import Book
@@ -10,7 +10,7 @@ from .forms import CommentForm
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 4
+    paginate_by = 6
     template_name = 'books/book_list.html'
     context_object_name = 'books'
 
@@ -43,10 +43,14 @@ class BookCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ['title', 'author', 'content', 'price', 'cover']
     template_name = 'books/book_create.html'
 
-class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
+class BookUpdateView(LoginRequiredMixin,UserPassesTestMixin, generic.UpdateView):
     model = Book
     fields = ['title', 'author', 'content', 'cover']
     template_name = 'books/book_update.html'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Book

@@ -22,9 +22,11 @@
                             <h1>هفت عادت مردمان موثر</h1>
                             <h5 class="small my-1"><span class="text-muted">نویسنده: </span>{{ book.author }}</h5>
                             <h5 class="small my-1"><span class="text-muted">سازنده: </span>{{ book.user.username }}</h5>
-                            <a href="{% url 'book_update' book.id %}">ویرایش</a>
-                            <span> یا </span>
-                            <a href="{% url 'book_delete' book.id %}">حذف</a>
+                            {% if book.user == user %}
+                                <a href="{% url 'book_update' book.id %}">ویرایش</a>
+                                <span> یا </span>
+                                <a href="{% url 'book_delete' book.id %}">حذف</a>
+                            {% endif %}
                         </div>
                         <div class="col-xs-12 col-md-3 d-flex flex-column">
                             <h3 class="align-self-center pt-2 text-muted align-self-md-end">
@@ -48,9 +50,9 @@
                                 {% if comment.is_active %}
                                     <h5 class="mb-3">{{ comment.user.username }}</h5>
                                     {% if comment.recommend %}
-                                        <p>این کتاب را توصیه میکنم.</p>
+                                        <p>این کتاب را توصیه میکنم</p>
                                     {% else %}
-                                        <p>این کتاب را توصیه نمیکنم.</p>
+                                        <p>این کتاب را توصیه نمیکنم</p>
                                     {% endif %}
                                     <p>{{ comment.text|linebreaks }}</p>
                                 {% endif %}
